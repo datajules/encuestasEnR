@@ -14,6 +14,18 @@
 # Precisiones estadísticas
 # Gráfica
 
+# Recursos para aprender
+# Complex Surveys
+  # http://r-survey.r-forge.r-project.org/svybook/
+# R4DS
+  # https://r4ds.had.co.nz/
+  # https://es.r4ds.hadley.nz/
+# Curso de Udemy
+  # https://www.udemy.com/course/aprende-lenguaje-r-desde-cero/
+  # ENCUESTASR21
+# Scripts del curso
+  # https://github.com/datajules/encuestasEnR/blob/main/encuestas.R
+
 
 # I. Descarga, decompresión y lectura de archivos -------------------------
 
