@@ -2,8 +2,8 @@ library(tidyverse)
 library(srvyr)
 library(survey)
 
-
 # I. Leer archivos dbf ----------------------------------------------------
+
 
 library(foreign)
 setwd('/home/julio/Desktop/Documents/datos/enigh_ejercicio2')
@@ -82,13 +82,15 @@ poblacion <- read_csv(poblacion_base)
 # Para unir las bases de viviendas y hogares se emplean las variables llave
 # folioviv
 
-
+nrow(viviendas)
+nrow(hogares)
 viviendas_hogares <- left_join(viviendas, hogares, by = c('folioviv'))
 
 # Para unir la base con la base de población empleamos las variables llave
 # folioviv
 # foliohog
-
+nrow(viviendas_hogares)
+nrow(poblacion)
 viviendas_hogares_poblacion <- left_join(viviendas_hogares, poblacion, by = c('folioviv', 'foliohog'))
 
 enigh_srv <- as_survey_design(viviendas_hogares_poblacion, strata = est_dis, weights = factor, id = upm)
@@ -96,7 +98,7 @@ enigh_srv <- as_survey_design(viviendas_hogares_poblacion, strata = est_dis, wei
 # Tabulados básicos Cuadro 1.1
 
 enigh_srv %>% mutate(poblacion = 1) %>% 
-  summarise(pob_tot = survey_total(poblacion, vartype = c("cv","ci")))
+  summarise(pob_tot = survey_total(poblacion, vartype = c("cv")))
 
 enigh_srv %>% group_by(sexo) %>% 
   summarise(pob_tot = survey_total(vartype = c("cv","ci")))
@@ -167,7 +169,10 @@ tabla_edad_s <- left_join(tabla_edad, tabla_edad_mas2500, by = 'rango_edad') %>%
   left_join(tabla_edad_men2500, by = 'rango_edad')
 
 
-write_excel_csv(tabla_edad_s,'edad.csv')
+write_excel_csv(tabla_edad_s,'edad_2.csv')
 
+
+# Loop para todas las localidas
+# Para entidades
 
 
