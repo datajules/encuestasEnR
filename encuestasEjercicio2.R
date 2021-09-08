@@ -115,6 +115,10 @@ enigh_srv <- enigh_srv %>% mutate(rango_edad = ifelse(edad >= 60 , '8. 60 Y MÁS
 
 enigh_srv <- enigh_srv %>% mutate(sexo_et = factor(as.integer(sexo), labels = c('HOMBRES','MUJERES')))
 
+setwd('/home/julio/Desktop/Documents/datos/enigh_ejercicio3')
+
+saveRDS(enigh_srv, 'enigh.rds')
+
 enigh_srv %>% group_by(rango_edad) %>% 
   summarise(pob_tot = survey_total(vartype = c("cv","ci")))
 
