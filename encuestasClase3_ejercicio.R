@@ -118,7 +118,7 @@ sumaDeNumeros
 tabla_edad <- enigh_srv %>% group_by(sexo_et, rango_edad) %>% 
   summarise(pob = survey_total(vartype = c("cv"))) 
  
-tabla_edad
+addmargins(tabla_edad)
 
 grafica1 <- ggplot(data = tabla_edad, aes(x = rango_edad, y = pob/1000000, fill = sexo_et)) +
   geom_col()
@@ -224,6 +224,15 @@ kbl(dt)
 # kable_material 
 # kable_material_dark
 
+salida1 <- dt %>% mutate(Total = pob_HOMBRES  + pob_MUJERES  )
+
+salida2 <- dt %>% summarise(pob_HOMBRES = sum(pob_HOMBRES), pob_MUJERES = sum(pob_MUJERES)  ) %>% 
+  mutate(rango_edad = "Total",pob_cv_HOMBRES = 0, pob_cv_MUJERES = 0, Total = 0 ) %>% 
+  select(rango_edad,       pob_HOMBRES, pob_cv_HOMBRES, pob_MUJERES, pob_cv_MUJERES,   Total)
+
+salida3 <- bind_rows(salida1, salida2) 
+salida3 %>% View()
+
 dt %>%
   kbl() %>%
   kable_classic_2()
@@ -270,4 +279,4 @@ dt %>%
   column_spec(2, color = ifelse(celda,'white', 'black'), background = ifelse(!celda,'white', 'black'))
 
 
-
+dt %>% addmargins()
